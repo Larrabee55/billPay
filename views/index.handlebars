@@ -1,0 +1,84 @@
+{{!-- Setup the `index.handlebars` to have the template that Handlebars can render onto. --}}
+<div class="container">
+  <div class="col-md-12 d-flex justify-content-center p-3">
+    <img src="../public/assets/img/burgerImages.jpeg" alt="guy eating burger">
+  </div>
+  <div class="col-md-12 p-3">
+    <h1 class="d-flex justify-content-center">Eat-Da-Burger!</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6" id="notDevoured">
+      <ul>
+        {{#each burger}}
+        {{#unless devoured}}
+        {{> burger/burger-block devoured=true}}
+        {{/unless}}
+        {{/each}}
+      </ul>
+
+    </div>
+    <div class="col-md-6" id="devour">
+      <ul>
+        {{#each burger}}
+        {{#if devoured}}
+        {{> burger/burger-block devoured=false}}
+        {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-mg-12 p-3">
+    <form class="create-form">
+      <div class="form-group d-flex justify-content-center">
+        <label for="burger">Burger Name: </label>
+        <input type="text" id="burger" name="burger_name">
+        <button type="submit">Add Burger</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<script>
+  $(".change-devoured").on("click", function (event) {
+    var id = $(this).data("id");
+
+    var nowDevouredState = {
+      devoured: 1
+    };
+
+    // Send the PUT request.
+    $.ajax("/api/burger/" + id, {
+      type: "PUT",
+      data: nowDevouredState
+    }).then(
+      function () {
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+  $(".create-form").on("submit", function (event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    var newBurger = {
+      burger_name: $("#burger").val().trim(),
+      devoured: 0
+    };
+
+    // Send the POST request.
+    $.ajax("/api/burger", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function () {
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+</script>
