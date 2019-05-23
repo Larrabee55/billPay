@@ -87,7 +87,6 @@ var orm = {
   },
   
   select: function(table, item, cb){
-    console.log("poop")
     let query = `select * from ${table} where user_id = "${item}"`
 
     connection.query(query,function(err,result){

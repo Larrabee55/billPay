@@ -40,11 +40,19 @@
     $(document).on("click","#submit",function(res){
         var username = $("#username").val()
         var password = $("#password").val()
-        console.log("poop")
         $.ajax(`/api/info/${username}/${password}`,{
         type:"GET"
         }).then(function(data){
-            
+            console.log(data)
+            if(data==true){
+                // location.assign(location.host+"/home")
+                console.log(location.href)
+                $.ajax(`/home`,{
+                    type:"get"
+                }).then(function(data){
+                    location.reload(location.host+"/home")
+                })
+            }
         })
     })
 
