@@ -35,12 +35,15 @@ function objToSql(ob) {
 var orm = {
   // selects all the rows from the table to be outputed on the screen
   all: function (tableInput, cb) {
-    var queryString = "SELECT * FROM " + tableInput + ";";
-    connection.query(queryString, function (err, result) {
+    let query = `select * from ${tableInput};`
+
+    // connection.query(query,function(err,result))
+    // var queryString = "SELECT * FROM " + tableInput + ";";
+    connection.query(query, function (err, result) {
       if (err) {
         throw err;
       }
-      cb(result);
+    cb(result);
     });
   },
   // creates a function to create a new burger
@@ -81,6 +84,17 @@ var orm = {
 
       cb(result);
     });
+  },
+  
+  select: function(table, item, cb){
+    console.log("poop")
+    let query = `select * from ${table} where user_id = "${item}"`
+
+    connection.query(query,function(err,result){
+      if (err) throw err
+
+      cb(result)
+    })
   }
 };
 // exports it to the model burger.js
