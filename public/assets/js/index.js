@@ -1,9 +1,16 @@
 
 //bill tracking page.
 
-//AJAX get request to select all bills from a certain user goes here.
+//ajax get request to select all bills from a certain user goes here.
 //Puts response from ajax into table rows.  Should go in .then function.
 var renderBillTable = function(data){
+    $("#bill-table").html(`
+    <tr>
+        <th><b>Bills</b></th>
+        <th><b>Amount</b></th>
+        <th><b>Due</b></th>
+    </tr>`)
+
     for(let i = 0; i < data.length; i++){
         $("#bill-table").append(`
         <tr data-id = "${i}" class = "bill-row">
@@ -18,7 +25,7 @@ var renderBillTable = function(data){
 }
 
 //initial load of bill table
-$.AJAX({
+$.ajax({
     method:"GET",
     url:"/api/getBillTable"
 
@@ -126,7 +133,7 @@ $("body").on("mouseleave",".button",function(){
 //inserting row into bill table by clicking the submit button
 $("body").on("click","#submit-button",function(event){
     event.preventDefault();
-    $.AJAX({
+    $.ajax({
         method: "POST",
         url: "/api/addBill",
         data: {
@@ -137,4 +144,16 @@ $("body").on("click","#submit-button",function(event){
     }).then(function(data){
 
     })
+})
+
+$("body").on("click",".delete-button",function(event){
+$.ajax({
+    method: "DELETE",
+    url: "/api/deleteBill",
+    data: {
+        id: $(this).data("id")
+    }
+}).then(function(data){
+    renderBillTable(data);
+})
 })
