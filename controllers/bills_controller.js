@@ -37,7 +37,7 @@ router.get("/api/info/:username/:password",function(req,res){
 //         }
 //         console.log(hbsObj)
 //         res.render("index",hbsObj)
-//     })
+//      })
 // })
 
 // router.post("/api/info", function (req, res) {
