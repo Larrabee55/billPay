@@ -1,13 +1,15 @@
-CREATE DATABASE burger_db;
-USE burger_db;
+CREATE DATABASE billPayDb;
+USE billPayDb;
 
-CREATE TABLE burger
+CREATE TABLE billPayDb
 (
   id int NOT NULL
   AUTO_INCREMENT,
-  burger_name varchar
+  bill_name varchar
   (255) NOT NULL,
-  devoured BOOLEAN DEFAULT false,
+  amount DECIMAL
+  (10,2) NOT NULL,
+  due_date DATE NOT NULL,
   PRIMARY KEY
   (id)
   );
