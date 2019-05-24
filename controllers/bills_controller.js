@@ -22,22 +22,27 @@ router.get("/api/info/:username/:password",function(req,res){
   })
 })
 
-router.get("/home",function(req,res){
+router.get("/home/:id",function(req,res){
   res.sendFile(path.join(__dirname,"../views/home.html"))
 })
 
 function userAuth(username, password, cb){
   dbComs.select("userInfo",username,function(data){
     var user_id = data[0].id
+    var user = {
+      auth: false,
+      data:data
+    }
     if(data[0].password == password){
-      dbComs.all("userBills",user_id,function(data){
+      dbComs.all("userBills",user_id,function(datar){
         console.log(`auth successful for ${username}`)
-        // router.get("/home")
-        cb(true)
+        user.auth = true
+        cb(user)
       })
     }else{
       console.log(`auth failed for ${username}`)
-      cb(false)
+      user.data = null
+      cb(user)
     }
   })
 }
