@@ -6,17 +6,24 @@ var userBills = require("../models/burger.js");
 // displays the data when the page is loaded up
 router.get("/", function (req, res) {
   userBills.all(function (data) {
+    var totalAmount = 0;
+    for (let i = 0; i < data.length; i++) {
+      totalAmount += data[i].amount;
+    }
+
     var hbsObject = {
-      userBills: data
+      userBills: data,
+      userTotal: totalAmount
     };
     res.render("index", hbsObject);
+
   });
 });
 router.post("/api/userBills", function (req, res) {
   userBills.create([
-    "bill_name", "amount", "due_date"
+    "bill_name", "amount", "due_date", "user_id"
   ], [
-    req.body.bill_name, req.body.amount, req.body.due_date
+    req.body.bill_name, req.body.amount, req.body.due_date, req.body.user_id
   ], function (result) {
     res.json({
       id: result.insertId
