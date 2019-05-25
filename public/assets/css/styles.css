@@ -1,18 +1,18 @@
-*{
+* {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.flex-container{
+.flex-container {
     display: flex;
 }
 
-body{
+body {
     /* background: #aaff88; */
 
     background: #3388cc
 }
 
-#nav-bar{
+#nav-bar {
     display: flex;
 
     justify-content: space-between;
@@ -26,7 +26,7 @@ body{
     margin-top: 50px;
 }
 
-#content-container{
+#content-container {
     width: 850px;
     padding: 10px;
     background-color: #ffffff55;
@@ -42,19 +42,25 @@ body{
     border-radius: 3px;
 }
 
-#bill-table{
+#bill-table {
 
     width: 100%;
+}
+
+#add-bill-table {
+    width: 100%;
+    margin-top: 30px;
 }
 
 table tr:nth-child(even) {
     background-color: #ffffff77;
 }
+
 table tr:nth-child(odd) {
     background-color: #ffffffcc;
-  }
+}
 
-th{
+th {
     text-align: left;
     padding: 5px;
 
@@ -65,7 +71,7 @@ th{
     width: 37%;
 }
 
-.button{
+.button {
     background-color: #ffffff99;
     color: #002244;
     text-align: center;
@@ -91,11 +97,11 @@ th{
     border: none;
 }
 
-#button-flex{
+#button-flex {
     justify-content: right;
 }
 
-.edit-button{
+.edit-button {
     position: absolute;
     right: 32px;
     opacity: .3;
@@ -103,10 +109,10 @@ th{
     display: none;
 
     margin-top: -18px;
-    
+
 }
 
-.delete-button{
+.delete-button {
     position: absolute;
     right: 15px;
     opacity: .3;
@@ -116,7 +122,7 @@ th{
     margin-top: -17px;
 }
 
-input{
+input {
     border: none;
 
     padding: 3px;
@@ -126,13 +132,15 @@ input{
     border-radius: 3px;
 }
 
-.nav-icon{
+.nav-icon {
     cursor: pointer;
 }
-.nav-container{
+
+.nav-container {
     position: relative;
 }
-.nav-tooltip{
+
+.nav-tooltip {
     opacity: 0;
 
     position: absolute;
@@ -158,6 +166,6 @@ input{
     pointer-events: none;
 }
 
-.nav-container:hover .nav-tooltip{
+.nav-container:hover .nav-tooltip {
     opacity: 1;
 }

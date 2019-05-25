@@ -35,7 +35,7 @@ function objToSql(ob) {
 var orm = {
   // selects all the rows from the table to be outputed on the screen
   all: function (tableInput, cb) {
-    var queryString = "SELECT * FROM " + tableInput + ";";
+    var queryString = "SELECT * FROM " + tableInput + " WHERE user_id = '2';";
     connection.query(queryString, function (err, result) {
       if (err) {
         throw err;

@@ -33,18 +33,46 @@
       <th><b>Amount</b></th>
       <th><b>Due</b></th>
     </tr>
+    <div class="flex-container" id="button-flex">
 
+      {{#each userBills}}
+      {{#if user_id}}
+      {{> bills/bill-block}}
+      {{/if}}
+      {{/each}}
+    </div>
   </table>
-  <div class="flex-container" id="button-flex">
-    <div id="new-bill-button" class="button">+</div>
 
-  </div>
+  <table id="add-bill-table">
+    <tr>
+      <th>Add Bill Name</th>
+      <th>Add Bill Amount</th>
+      <th>Add Due Date</th>
+    </tr>
+    <tr id="new-bill-row">
+      <form id="bill-form"></form>
+      <th>
+        <input type="text" id="bill-name" name="bill">
+      </th>
+      <th>
+        <input type="number" id="amount">
+      </th>
+      <th>
+        <input type="date" id="due">
+      </th>
+      </form>
+    </tr>
+  </table>
+
+  <div id="new-bill-button" class="button">+</div>
+
   <table id="total-table">
     <tr>
       <th width="372px"><b>Total:</b></th>
-      <th width="207px" id="total-row"><b>$1000000</b></th>
+      <th width="207px" id="totals">${{userTotal}}</th>
     </tr>
   </table>
+
 </div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/assets/js/index.js"></script>
