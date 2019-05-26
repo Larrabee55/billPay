@@ -81,7 +81,48 @@ var orm = {
 
       cb(result);
     });
+  },
+  iou: function (table, cols, vals, cb) {
+    var queryString = "INSERT INTO " + table;
+    // creates a string so it can be run through the database to be added
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
+
+    console.log(queryString);
+
+    connection.query(queryString, vals, function (err, result) {
+      if (err) {
+        throw err;
+      }
+
+      cb(result);
+    });
+  },
+  receipt: function (table, cols, vals, cb) {
+    var queryString = "INSERT INTO " + table;
+    // creates a string so it can be run through the database to be added
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
+
+    console.log(queryString);
+
+    connection.query(queryString, vals, function (err, result) {
+      if (err) {
+        throw err;
+      }
+
+      cb(result);
+    });
   }
+
 };
 // exports it to the model burger.js
 module.exports = orm;
