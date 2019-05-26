@@ -16,6 +16,11 @@ var userBills = {
     orm.update("userBills", objColVals, condition, function (res) {
       cb(res)
     });
+  },
+  delete: function (condition, cb) {
+    orm.delete("userBills", condition, function (res) {
+      cb(res);
+    });
   }
 }
 // export the database functions for the controller (userBillss_controllers.js)

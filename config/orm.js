@@ -36,6 +36,8 @@ var orm = {
   // selects all the rows from the table to be outputed on the screen
   all: function (tableInput, cb) {
     var queryString = "SELECT * FROM " + tableInput + " WHERE user_id = '2';";
+    // var queryString2 = "SELECT DATE_FORMAT(" + due_date + ", '%D');";
+
     connection.query(queryString, function (err, result) {
       if (err) {
         throw err;
@@ -74,6 +76,19 @@ var orm = {
     queryString += condition;
 
     console.log(queryString);
+    connection.query(queryString, function (err, result) {
+      if (err) {
+        throw err;
+      }
+
+      cb(result);
+    });
+  },
+  delete: function (table, condition, cb) {
+    var queryString = "DELETE FROM " + table;
+    queryString += " WHERE ";
+    queryString += condition;
+
     connection.query(queryString, function (err, result) {
       if (err) {
         throw err;
