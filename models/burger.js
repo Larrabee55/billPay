@@ -25,6 +25,11 @@ var userBills = {
 
   receipt: function (cols, vals, cb) {
     orm.iou("receipt", cols, vals, function (res) {
+      cb(res):
+    });
+  },
+  delete: function (condition, cb) {
+    orm.delete("userBills", condition, function (res) {
       cb(res);
     });
   }

@@ -84,21 +84,27 @@ $("body").on("click", "#cancel-button", function () {
 
 
 //shows edit and delete button where hovering over row and hides them when exiting.
-$("body").on("mouseenter", ".bill-row", function () {
-    let id = $(this).data("id")
-    $(".edit-button").each(function () {
-        if ($(this).data("id") === id) {
-            $(this).css("display", "block")
-        }
-    })
+// $("body").on("mouseenter", ".bill-row", function () {
+//     let id = $(this).data("id")
+//     $(".edit-button").each(function () {
+//         if ($(this).data("id") === id) {
+//             $(this).css("display", "block")
+//         }
+//     })
+// })
 
-    $(".delete-button").each(function () {
-        if ($(this).data("id") === id) {
-            $(this).css("display", "block")
+$(".delete-button").on("click", function () {
+    var id = $(this).data("id");
+    $.ajax("/api/userBills/" + id, {
+        type: "DELETE"
+    }).then(
+        function () {
+            location.reload();
         }
-    })
+    );
+});
 
-})
+
 
 $("body").on("mouseleave", ".bill-row", function () {
     let id = $(this).data("id")
