@@ -174,3 +174,11 @@ $("body").on("click", ".delete-button", function (event) {
         renderBillTable(data);
     })
 })
+
+$("#money-icon").on("click", function () {
+    window.location = window.location + "receipt"
+})
+
+$("#iou-icon").on("click", function () {
+    window.location = window.location + "iou"
+})

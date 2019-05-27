@@ -1,6 +1,8 @@
 var express = require("express");
 // makes a router for express
 var router = express.Router();
+
+var path = require("path");
 // pulls the models file to use for this file
 var userBills = require("../models/burger.js");
 // displays the data when the page is loaded up
@@ -23,12 +25,12 @@ router.post("/api/userBills", function (req, res) {
   userBills.create([
     "bill_name", "amount", "due_date", "user_id"
   ], [
-    req.body.bill_name, req.body.amount, req.body.due_date, req.body.user_id
-  ], function (result) {
-    res.json({
-      id: result.insertId
+      req.body.bill_name, req.body.amount, req.body.due_date, req.body.user_id
+    ], function (result) {
+      res.json({
+        id: result.insertId
+      });
     });
-  });
 });
 router.put("/api/userBills/:id", function (req, res) {
   var condition = "id = " + req.params.id;
@@ -44,6 +46,34 @@ router.put("/api/userBills/:id", function (req, res) {
     }
   });
 });
+router.post("/api/iou", function (req, res) {
+  userBills.iou([
+    "recipient", "amount", "memo"
+  ], [
+      req.body.recipient, req.body.amount, req.body.memo
+    ], function (result) {
+      res.json();
+    });
+});
+
+router.post("/api/receipt", function (req, res) {
+  userBills.receipt([
+    "catagory", "amount"
+  ], [
+      req.body.catagory, req.body.amount
+    ], function (result) {
+      res.json();
+    });
+});
+
+router.get("/iou", function (req, res) {
+  res.sendFile(path.join(__dirname, "../testIou.html"))
+});
+
+router.get("/receipt", function (req, res) {
+  res.sendFile(path.join(__dirname, "../testReceipt.html"))
+});
+
 
 router.delete("/api/userBills/:id", function (req, res) {
   var condition = "id = " + req.params.id;
