@@ -3,7 +3,7 @@ var orm = require("../config/orm.js");
 var userBills = {
   // functions that call ORM functions using specific input for the ORM
   all: function (cb) {
-    orm.all("billPayDb", function (res) {
+    orm.all("userBills", function (res) {
       cb(res);
     });
   },
@@ -17,22 +17,21 @@ var userBills = {
       cb(res)
     });
   },
-  iou: function (cols, vals, cb) {
-    orm.iou("userIou", cols, vals, function (res) {
-      cb(res);
-    });
-  },
-
-  receipt: function (cols, vals, cb) {
-    orm.iou("receipt", cols, vals, function (res) {
-      cb(res):
-    });
-  },
   delete: function (condition, cb) {
     orm.delete("userBills", condition, function (res) {
       cb(res);
     });
   }
 }
+// ------------receipt----------------
+
+
+// ----------IOU--------------------------
+
+// allIou: function (cols, vals, cb) {
+//   orm.iou("userIou", cols, vals, function (res) {
+//     cb(res);
+//   });
+// }
 // export the database functions for the controller (userBillss_controllers.js)
 module.exports = userBills;

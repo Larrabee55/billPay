@@ -42,7 +42,6 @@ $("body").on("click", "#new-bill-button", function () {
     }).then(
         function () {
             location.reload();
-            calculateTotal()
         }
     );
 
@@ -72,15 +71,54 @@ $("body").on("click", "#new-bill-button", function () {
     // $("#button-flex").css("justify-content", "space-between")
 });
 
+$("body").on("click", "#new-receipt-button", function () {
+    event.preventDefault();
+
+    var newReceipt = {
+        receipt_name: $("#receipt-name").val().trim(),
+        amount: $("#amount").val().trim(),
+        category: $("#category").val().trim(),
+        user_id: 2
+    };
+
+    $.ajax("/api/userReceipts", {
+        type: "POST",
+        data: newReceipt
+    }).then(
+        function () {
+            location.reload();
+        }
+    );
+});
+
+$("body").on("click", "#new-iou-button", function () {
+    event.preventDefault();
+
+    var newIou = {
+        iou_name: $("#iou-name").val().trim(),
+        amount: $("#amount").val().trim(),
+        user_id: 2
+    };
+
+    $.ajax("/api/userIou", {
+        type: "POST",
+        data: newIou
+    }).then(
+        function () {
+            location.reload();
+        }
+    );
+});
+
 // Clicking the cancel button removes the form from the bottom of the table
-$("body").on("click", "#cancel-button", function () {
-    $("#new-bill-row").remove();
+// $("body").on("click", "#cancel-button", function () {
+//     $("#new-bill-row").remove();
 
-    $("#button-flex").html(`
-    <div id = "new-bill-button" class = "button">+</div>`)
+//     $("#button-flex").html(`
+//     <div id = "new-bill-button" class = "button">+</div>`)
 
-    $("#button-flex").css("justify-content", "right")
-})
+//     $("#button-flex").css("justify-content", "right")
+// })
 
 
 //shows edit and delete button where hovering over row and hides them when exiting.
@@ -93,9 +131,29 @@ $("body").on("click", "#cancel-button", function () {
 //     })
 // })
 
-$(".delete-button").on("click", function () {
+$(".delete-bill-button").on("click", function () {
     var id = $(this).data("id");
     $.ajax("/api/userBills/" + id, {
+        type: "DELETE"
+    }).then(
+        function () {
+            location.reload();
+        }
+    );
+});
+$(".delete-receipt-button").on("click", function () {
+    var id = $(this).data("id");
+    $.ajax("/api/userReceipts/" + id, {
+        type: "DELETE"
+    }).then(
+        function () {
+            location.reload();
+        }
+    );
+});
+$(".delete-iou-button").on("click", function () {
+    var id = $(this).data("id");
+    $.ajax("/api/userIou/" + id, {
         type: "DELETE"
     }).then(
         function () {
@@ -106,21 +164,21 @@ $(".delete-button").on("click", function () {
 
 
 
-$("body").on("mouseleave", ".bill-row", function () {
-    let id = $(this).data("id")
-    $(".edit-button").each(function () {
-        if ($(this).data("id") === id) {
-            $(this).css("display", "none")
-        }
-    })
+// $("body").on("mouseleave", ".bill-row", function () {
+//     let id = $(this).data("id")
+//     $(".edit-button").each(function () {
+//         if ($(this).data("id") === id) {
+//             $(this).css("display", "none")
+//         }
+//     })
 
-    $(".delete-button").each(function () {
-        if ($(this).data("id") === id) {
-            $(this).css("display", "none")
-        }
-    })
+//     $(".delete-button").each(function () {
+//         if ($(this).data("id") === id) {
+//             $(this).css("display", "none")
+//         }
+//     })
 
-})
+// })
 
 //adjusts opacity when user hovers over or leaves buttons.  (could probably be done with less code in css)
 $("body").on("mouseenter", ".edit-button", function () {
@@ -148,32 +206,32 @@ $("body").on("mouseleave", ".button", function () {
 })
 
 //inserting row into bill table by clicking the submit button
-$("body").on("click", "#submit-button", function (event) {
-    event.preventDefault();
-    $.ajax({
-        method: "POST",
-        url: "/api/addBill",
-        data: {
-            billName: $("#bill-name").val(),
-            amount: $("#amount").val(),
-            due: $("#due").val()
-        }
-    }).then(function (data) {
+// $("body").on("click", "#submit-button", function (event) {
+//     event.preventDefault();
+//     $.ajax({
+//         method: "POST",
+//         url: "/api/addBill",
+//         data: {
+//             billName: $("#bill-name").val(),
+//             amount: $("#amount").val(),
+//             due: $("#due").val()
+//         }
+//     }).then(function (data) {
 
-    })
-})
+//     })
+// })
 
-$("body").on("click", ".delete-button", function (event) {
-    $.ajax({
-        method: "DELETE",
-        url: "/api/deleteBill",
-        data: {
-            id: $(this).data("id")
-        }
-    }).then(function (data) {
-        renderBillTable(data);
-    })
-})
+// $("body").on("click", ".delete-button", function (event) {
+//     $.ajax({
+//         method: "DELETE",
+//         url: "/api/deleteBill",
+//         data: {
+//             id: $(this).data("id")
+//         }
+//     }).then(function (data) {
+//         renderBillTable(data);
+//     })
+// })
 
 $("#money-icon").on("click", function () {
     window.location = window.location + "receipt"
