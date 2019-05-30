@@ -29,7 +29,7 @@ router.get("/api/users/:user/:password",function(req,res){
   user.select(username,function(result){
     person = result[0]
     res.send(person)
-  })
+  }) 
 })
 
 router.get("/bills",function(req,res){
