@@ -1,26 +1,54 @@
 var express = require("express");
-// makes a router for express
+var userBills = require("../models/burger.js");
+var user = require("../models/loginOrm")
+
+var person
+
 var router = express.Router();
 
-// pulls the models file to use for this file
-var userBills = require("../models/burger.js");
-
-// displays the data when the page is loaded up
 router.get("/", function (req, res) {
-  userBills.all(function (data) {
+  // userBills.all(function (data) {
+  //   var totalAmount = 0;
+  //   for (let i = 0; i < data.length; i++) {
+  //     totalAmount += data[i].amount;
+  //   }
+
+  //   var hbsObject = {
+  //     userBills: data,
+  //     userTotal: totalAmount
+  //   };
+  //   res.render("index", hbsObject);
+
+  // });
+  res.render("login")
+});
+router.get("/api/users/:user/:password",function(req,res){
+  var username = req.params.user
+  var password = req.params.password
+
+  user.select(username,function(result){
+    person = result[0]
+    res.send(person)
+  })
+})
+
+router.get("/bills",function(req,res){
+  // console.log("poop")
+  userBills.select(person.id, function (data) {
     var totalAmount = 0;
     for (let i = 0; i < data.length; i++) {
       totalAmount += data[i].amount;
     }
 
     var hbsObject = {
-      userBills: data,
+      userBills: data, 
       userTotal: totalAmount
     };
     res.render("index", hbsObject);
 
   });
-});
+})
+
 router.post("/api/userBills", function (req, res) {
   userBills.create([
     "bill_name", "amount", "due_date", "user_id"

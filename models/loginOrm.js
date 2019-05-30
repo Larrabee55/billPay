@@ -21,6 +21,11 @@ var userCreds = {
         orm.delete("userInfo", condition, function (res) {
             cb(res);
         });
+    },
+    select:function(user,cb){
+        orm.select("userInfo","user_id",user,function(res){
+            cb(res)
+        })
     }
 }
 

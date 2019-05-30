@@ -97,6 +97,14 @@ var orm = {
       }
       cb(result);
     });
+  },
+  select: function (table,col,val,cb){
+    var query = `select * from ${table} where ${col} = "${val}"`;
+    connection.query(query,function(err,result){
+      if (err) throw err
+
+      cb(result)
+    })
   }
 };
 // exports it to the model burger.js

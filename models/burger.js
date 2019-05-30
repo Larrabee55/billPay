@@ -21,7 +21,12 @@ var userBills = {
     orm.delete("userBill", condition, function (res) {
       cb(res);
     });
-  }
+  },
+  select:function(user,cb){
+        orm.select("userBills","user_id",user,function(res){
+            cb(res)
+        })
+    }
 }
 // ------------receipt----------------
 
