@@ -1,45 +1,73 @@
-<div id="content-container">
-  <table id="bill-table">
-    <tr>
-      <th><b>Receipt Name</b></th>
-      <th><b>Amount</b></th>
-      <th> </th>
-    </tr>
-    <div class="flex-container" id="button-flex">
+<body>
+  <div class="flex-container" id="nav-bar">
 
-      {{#each userIou}}
-      {{#if user_id}}
-      {{>iou/iou-block}}
-      {{/if}}
-      {{/each}}
+    <div class="nav-container">
+      <img id="home-icon" src="/assets/img/images/home.png" width="50px" class="nav-icon">
+      <p class="nav-tooltip">Home</p>
     </div>
-  </table>
 
-  <table id="add-bill-table">
-    <tr>
-      <th>Add IOU Name</th>
-      <th>Add Amount</th>
-    </tr>
-    <tr id="new-bill-row">
-      <form id="iou-form"></form>
-      <th>
-        <input type="text" id="iou-name" name="iou">
-      </th>
-      <th>
-        <input type="number" id="amount">
-      </th>
-      </form>
-    </tr>
-  </table>
-  <div id="new-iou-button" class="button">+</div>
+    <div class="nav-container">
+      <a href="/"><img id="bills-icon" src="/assets/img/images/bills.png" width="50px" class="nav-icon"></a>
+      <p class="nav-tooltip">Bills</p>
+    </div>
 
-  {{!-- <table id="total-table">
+    <div class="nav-container">
+      <a href="/receipts"><img id="money-icon" src="/assets/img/images/money.png" width="50px" class="nav-icon"></a>
+      <p class="nav-tooltip">Expenses</p>
+    </div>
+
+    <div class="nav-container">
+      <a href="/iou"><img id="iou-icon" src="/assets/img/images/iou.png" width="50px" class="nav-icon"></a>
+      <p class="nav-tooltip">IOUs</p>
+    </div>
+
+    <div class="nav-container">
+      <img id="user-icon" src="/assets/img/images/usericon.png" width="50px" class="nav-icon">
+      <p class="nav-tooltip">User</p>
+    </div>
+  </div>
+  <div id="content-container">
+    <table id="bill-table">
+      <tr>
+        <th><b>Receipt Name</b></th>
+        <th><b>Amount</b></th>
+        <th> </th>
+      </tr>
+      <div class="flex-container" id="button-flex">
+
+        {{#each userIou}}
+        {{#if user_id}}
+        {{>iou/iou-block}}
+        {{/if}}
+        {{/each}}
+      </div>
+    </table>
+
+    <table id="add-bill-table">
+      <tr>
+        <th>Add IOU Name</th>
+        <th>Add Amount</th>
+      </tr>
+      <tr id="new-bill-row">
+        <form id="iou-form"></form>
+        <th>
+          <input type="text" id="iou-name" name="iou">
+        </th>
+        <th>
+          <input type="number" id="amount">
+        </th>
+        </form>
+      </tr>
+    </table>
+    <div id="new-iou-button" class="button">+</div>
+
+    {{!-- <table id="total-table">
     <tr>
       <th width="372px"><b>Total:</b></th>
       <th width="207px" id="totals">${{userReceiptsTotal}}</th>
     </tr>
   </table> --}}
 
-</div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/assets/js/index.js"></script>
+  </div>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/assets/js/index.js"></script>
