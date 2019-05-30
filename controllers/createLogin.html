@@ -8,46 +8,48 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>IOU</title>
+    <title>Create Login</title>
 </head>
 
 <body>
     <div class="container">
-        <h2>IOU</h2>
+        <h2>Create Login</h2>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">catagory</span>
+                <span class="input-group-text" id="basic-addon1">Email</span>
             </div>
-            <input type="text" class="form-control" id="recipient" placeholder="Recipient" aria-label=""
+            <input type="text" class="form-control" id="email" placeholder="Username" aria-label="Username"
                 aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Amount</span>
+                <span class="input-group-text" id="basic-addon1">Password</span>
             </div>
-            <input type="text" class="form-control" id="amount" placeholder="Amount" aria-label=""
+            <input type="text" class="form-control" id="pass" placeholder="Password" aria-label="Password"
                 aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Memo</span>
-            </div>
-            <textarea class="form-control" id="memo" aria-label="With textarea"></textarea>
         </div>
         <button type="button" id="submit" class="btn btn-primary">Primary</button>
     </div>
 
     <script>
+        const crypto = require('crypto');
+
+        const secret = 'abcdefg';
+        const hash = crypto.createHmac('sha256', secret)
+            .update('I love cupcakes')
+            .digest('hex');
+        console.log(hash);
+
         $("#submit").on("click", function () {
-            var iouObj = {
-                recipient: $("#recipient").val(),
-                amount: $("#amount").val(),
-                memo: $("#memo").val()
+
+            var creds = {
+                email: $("#email").val(),
+                password: $("#pass").val()
             }
             $.ajax({
                 method: "POST",
-                url: "/api/iou",
-                data: iouObj
+                url: "/api/info",
+                data: creds
             })
                 .then(function () {
                     location.reload();

@@ -3,22 +3,22 @@ var orm = require("../config/orm.js");
 var userBills = {
   // functions that call ORM functions using specific input for the ORM
   all: function (cb) {
-    orm.all("userBills", function (res) {
+    orm.all("userBill", function (res) {
       cb(res);
     });
   },
   create: function (cols, vals, cb) {
-    orm.create("userBills", cols, vals, function (res) {
+    orm.create("userBill", cols, vals, function (res) {
       cb(res);
     });
   },
   update: function (objColVals, condition, cb) {
-    orm.update("userBills", objColVals, condition, function (res) {
+    orm.update("userBill", objColVals, condition, function (res) {
       cb(res)
     });
   },
   delete: function (condition, cb) {
-    orm.delete("userBills", condition, function (res) {
+    orm.delete("userBill", condition, function (res) {
       cb(res);
     });
   }
