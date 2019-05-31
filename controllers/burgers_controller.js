@@ -30,7 +30,7 @@ router.get("/api/users/:user/:password", function (req, res) {
   user.select(username, function (result) {
     person = result[0]
     console.log(person);
-    return person;
+    res.send(person);
   })
 })
 
@@ -43,7 +43,7 @@ router.get("/bills", function (req, res) {
     }
 
     var hbsObject = {
-      userBill: data,
+      userBills: data,
       userTotal: totalAmount
     };
     res.render("index", hbsObject);
@@ -55,13 +55,14 @@ router.post("/api/userBills", function (req, res) {
   userBills.create([
     "bill_name", "amount", "due_date", "user_id"
   ], [
-      req.body.bill_name, req.body.amount, req.body.due_date, req.body.user_id
-    ], function (result) {
-      res.json({
-        id: result.insertId
-      });
+    req.body.bill_name, req.body.amount, req.body.due_date, req.body.user_id
+  ], function (result) {
+    res.json({
+      id: result.insertId
     });
+  });
 });
+
 router.put("/api/userBills/:id", function (req, res) {
   var condition = "id = " + req.params.id;
 
@@ -103,9 +104,9 @@ router.get("/receipts", function (req, res) {
 
     var hbsObject = {
       userReceipts: data,
-      userTotal: totalAmount
+      userReceiptsTotal: totalAmount
     };
-    res.render("index", hbsObject);
+    res.render("receipts", hbsObject);
 
   });
 })
@@ -130,10 +131,10 @@ router.post("/api/userReceipts", function (req, res) {
   userReceipts.create([
     "receipt_name", "amount", "category", "user_id"
   ], [
-      req.body.receipt_name, req.body.amount, req.body.category, req.body.user_id
-    ], function (result) {
-      res.json();
-    });
+    req.body.receipt_name, req.body.amount, req.body.category, req.body.user_id
+  ], function (result) {
+    res.json();
+  });
 });
 
 router.delete("/api/userReceipts/:id", function (req, res) {
@@ -168,10 +169,10 @@ router.post("/api/userIou", function (req, res) {
   userIou.create([
     "iou_name", "amount", "user_id"
   ], [
-      req.body.iou_name, req.body.amount, req.body.user_id
-    ], function (result) {
-      res.json();
-    });
+    req.body.iou_name, req.body.amount, req.body.user_id
+  ], function (result) {
+    res.json();
+  });
 });
 
 router.delete("/api/userIou/:id", function (req, res) {
@@ -210,14 +211,14 @@ var secret = process.env.secret;
 
 router.post("/api/userCreds", function (req, res) {
   userCreds.create([
-    "email", "password"
+    "username", "password"
   ], [
-      req.body.email, hash = crypto.createHmac('sha256', secret)
-        .update(req.body.password)
-        .digest('hex')
-    ], function (result) {
-      res.json();
-    });
+    req.body.username, hash = crypto.createHmac('sha256', secret)
+    .update(req.body.password)
+    .digest('hex')
+  ], function (result) {
+    res.json();
+  });
 });
 
 router.delete("/api/userCreds/:id", function (req, res) {
