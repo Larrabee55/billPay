@@ -36,7 +36,7 @@
       </tr>
       <div class="flex-container" id="button-flex">
 
-        {{#each userBills}}
+        {{#each userBill}}
         {{#if user_id}}
         {{> bills/bill-block}}
         {{/if}}
@@ -73,6 +73,21 @@
         <th width="207px" id="totals">${{userTotal}}</th>
       </tr>
     </table>
+
+  </div>
+
+  <div class="container">
+    <input type="text" id="rate" class="form-control" placeholder="Hourly Rate">
+    <div class="container">
+      <h2>X</h2>
+    </div>
+    <input type="text" id="hours" class="form-control" placeholder="Hours per week">
+
+    <br>
+    <br>
+    <input class="btn btn-primary btn-lg" id="math" type="button"> Submit </input>
+  </div>
+  <div id="output" class="container">
 
   </div>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -21,6 +21,11 @@ var userReceipts = {
     orm.delete("userReceipts", condition, function (res) {
       cb(res);
     });
+  },
+  select: function (user, cb) {
+    orm.select("userReceipts", "user_id", user, function (res) {
+      cb(res)
+    })
   }
 }
 module.exports = userReceipts;
