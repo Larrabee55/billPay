@@ -2,12 +2,7 @@
   <div class="flex-container" id="nav-bar">
 
     <div class="nav-container">
-      <img id="home-icon" src="/assets/img/images/home.png" width="50px" class="nav-icon">
-      <p class="nav-tooltip">Home</p>
-    </div>
-
-    <div class="nav-container">
-      <a href="/"><img id="bills-icon" src="/assets/img/images/bills.png" width="50px" class="nav-icon"></a>
+      <a href="/bills"><img id="bills-icon" src="/assets/img/images/bills.png" width="50px" class="nav-icon"></a>
       <p class="nav-tooltip">Bills</p>
     </div>
 
@@ -20,11 +15,6 @@
       <a href="/iou"><img id="iou-icon" src="/assets/img/images/iou.png" width="50px" class="nav-icon"></a>
       <p class="nav-tooltip">IOUs</p>
     </div>
-
-    <div class="nav-container">
-      <img id="user-icon" src="/assets/img/images/usericon.png" width="50px" class="nav-icon">
-      <p class="nav-tooltip">User</p>
-    </div>
   </div>
   <div id="content-container">
     <table id="bill-table">
@@ -36,7 +26,7 @@
       </tr>
       <div class="flex-container" id="button-flex">
 
-        {{#each userBill}}
+        {{#each userBills}}
         {{#if user_id}}
         {{> bills/bill-block}}
         {{/if}}
@@ -53,7 +43,7 @@
       <tr id="new-bill-row">
         <form id="bill-form"></form>
         <th>
-          <input type="text" id="bill-name" name="bill">
+          <input type="text" id="bill-name">
         </th>
         <th>
           <input type="number" id="amount">
@@ -74,20 +64,28 @@
       </tr>
     </table>
 
-  </div>
+    <br>
+    <br>
+    <br>
 
-  <div class="container">
-    <input type="text" id="rate" class="form-control" placeholder="Hourly Rate">
     <div class="container">
-      <h2>X</h2>
-    </div>
-    <input type="text" id="hours" class="form-control" placeholder="Hours per week">
+      <h2>INCOME</h2>
+      <input type="text" id="rate" class="form-control" placeholder="Hourly Rate">
+      <div class="container">
+        <h2>X</h2>
+      </div>
+      <input type="text" id="hours" class="form-control" placeholder="Hours per week">
 
+      <br>
+      <br>
+      <button class="btn btn-primary btn-lg" id="math" type="button"> Submit </button>
+    </div>
     <br>
+    <div id="weekly" class="container"></div>
     <br>
-    <input class="btn btn-primary btn-lg" id="math" type="button"> Submit </input>
-  </div>
-  <div id="output" class="container">
+    <div id="monthly" class="container"></div>
+    <br>
+    <div id="annualy" class="container"></div>
 
   </div>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
