@@ -28,9 +28,9 @@ router.get("/api/users/:user/:password", function (req, res) {
 
 
   user.select(username, function (result) {
-    person = result[0]
+    person = result[0];
     console.log(person);
-    return person;
+    res.send(person);
   })
 })
 
@@ -52,6 +52,7 @@ router.get("/bills", function (req, res) {
 })
 
 router.post("/api/userBills", function (req, res) {
+  console.log(req.body);
   userBills.create([
     "bill_name", "amount", "due_date", "user_id"
   ], [
@@ -94,7 +95,9 @@ router.delete("/api/userBills/:id", function (req, res) {
 var userReceipts = require("../models/receipts.js");
 
 router.get("/receipts", function (req, res) {
+
   console.log(person);
+
   userReceipts.select(person.user_id, function (data) {
     var totalAmount = 0;
     for (let i = 0; i < data.length; i++) {
@@ -103,9 +106,9 @@ router.get("/receipts", function (req, res) {
 
     var hbsObject = {
       userReceipts: data,
-      userTotal: totalAmount
+      userReceiptsTotal: totalAmount
     };
-    res.render("index", hbsObject);
+    res.render("receipts", hbsObject);
 
   });
 })
@@ -154,15 +157,34 @@ router.delete("/api/userReceipts/:id", function (req, res) {
 var userIou = require("../models/iou.js");
 
 router.get("/iou", function (req, res) {
-  userIou.all(function (data) {
+
+  console.log(person);
+
+  userIou.select(person.user_id, function (data) {
+    var totalAmount = 0;
+    for (let i = 0; i < data.length; i++) {
+      totalAmount += data[i].amount;
+    }
 
     var hbsObject = {
-      userIou: data
+      userIou: data,
+      userTotal: totalAmount
     };
     res.render("iou", hbsObject);
 
   });
-});
+})
+
+// router.get("/iou", function (req, res) {
+//   userIou.all(function (data) {
+
+//     var hbsObject = {
+//       userIou: data
+//     };
+//     res.render("iou", hbsObject);
+
+//   });
+// });
 
 router.post("/api/userIou", function (req, res) {
   userIou.create([
@@ -210,9 +232,9 @@ var secret = process.env.secret;
 
 router.post("/api/userCreds", function (req, res) {
   userCreds.create([
-    "email", "password"
+    "username", "password"
   ], [
-      req.body.email, hash = crypto.createHmac('sha256', secret)
+      req.body.username, hash = crypto.createHmac('sha256', secret)
         .update(req.body.password)
         .digest('hex')
     ], function (result) {
