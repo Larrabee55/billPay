@@ -28,7 +28,7 @@ router.get("/api/users/:user/:password", function (req, res) {
 
 
   user.select(username, function (result) {
-    person = result[0]
+    person = result[0];
     console.log(person);
     res.send(person);
   })
@@ -52,6 +52,7 @@ router.get("/bills", function (req, res) {
 })
 
 router.post("/api/userBills", function (req, res) {
+  console.log(req.body);
   userBills.create([
     "bill_name", "amount", "due_date", "user_id"
   ], [
@@ -95,7 +96,9 @@ router.delete("/api/userBills/:id", function (req, res) {
 var userReceipts = require("../models/receipts.js");
 
 router.get("/receipts", function (req, res) {
+
   console.log(person);
+
   userReceipts.select(person.user_id, function (data) {
     var totalAmount = 0;
     for (let i = 0; i < data.length; i++) {
@@ -155,15 +158,34 @@ router.delete("/api/userReceipts/:id", function (req, res) {
 var userIou = require("../models/iou.js");
 
 router.get("/iou", function (req, res) {
-  userIou.all(function (data) {
+
+  console.log(person);
+
+  userIou.select(person.user_id, function (data) {
+    var totalAmount = 0;
+    for (let i = 0; i < data.length; i++) {
+      totalAmount += data[i].amount;
+    }
 
     var hbsObject = {
-      userIou: data
+      userIou: data,
+      userTotal: totalAmount
     };
     res.render("iou", hbsObject);
 
   });
-});
+})
+
+// router.get("/iou", function (req, res) {
+//   userIou.all(function (data) {
+
+//     var hbsObject = {
+//       userIou: data
+//     };
+//     res.render("iou", hbsObject);
+
+//   });
+// });
 
 router.post("/api/userIou", function (req, res) {
   userIou.create([
@@ -213,12 +235,13 @@ router.post("/api/userCreds", function (req, res) {
   userCreds.create([
     "username", "password"
   ], [
-    req.body.username, hash = crypto.createHmac('sha256', secret)
-    .update(req.body.password)
-    .digest('hex')
-  ], function (result) {
-    res.json();
-  });
+      req.body.username, hash = crypto.createHmac('sha256', secret)
+        .update(req.body.password)
+        .digest('hex')
+    ], function (result) {
+      res.json();
+    });
+
 });
 
 router.delete("/api/userCreds/:id", function (req, res) {

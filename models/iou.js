@@ -21,6 +21,11 @@ var userIou = {
     orm.delete("userIou", condition, function (res) {
       cb(res);
     });
+  },
+  select: function (user, cb) {
+    orm.select("userIou", "user_id", user, function (res) {
+      cb(res)
+    })
   }
 }
 

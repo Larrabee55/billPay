@@ -37,6 +37,8 @@ $("body").on("click", "#new-bill-button", function (event) {
     };
     console.log(newBill)
 
+    console.log(newBill);
+
     $.ajax("/api/userBills", {
         type: "POST",
         data: newBill
