@@ -22,8 +22,8 @@ var userCreds = {
             cb(res);
         });
     },
-    select:function(user,cb){
-        orm.select("userInfo","user_id",user,function(res){
+    select: function (user, cb) {
+        orm.select("userInfo", "username", user, function (res) {
             cb(res)
         })
     }

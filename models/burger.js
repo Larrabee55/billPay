@@ -22,11 +22,11 @@ var userBills = {
       cb(res);
     });
   },
-  select:function(user,cb){
-        orm.select("userBills","user_id",user,function(res){
-            cb(res)
-        })
-    }
+  select: function (user, cb) {
+    orm.select("userBill", "user_id", user, function (res) {
+      cb(res)
+    })
+  }
 }
 // ------------receipt----------------
 

@@ -1,8 +1,8 @@
 var express = require("express");
 var userBills = require("../models/burger.js");
-var user = require("../models/loginOrm")
+var user = require("../models/loginOrm");
 
-var person
+var person;
 
 var router = express.Router();
 
@@ -22,26 +22,28 @@ router.get("/", function (req, res) {
   // });
   res.render("login")
 });
-router.get("/api/users/:user/:password",function(req,res){
+router.get("/api/users/:user/:password", function (req, res) {
   var username = req.params.user
   var password = req.params.password
 
-  user.select(username,function(result){
+
+  user.select(username, function (result) {
     person = result[0]
-    res.send(person)
-  }) 
+    console.log(person);
+    return person;
+  })
 })
 
-router.get("/bills",function(req,res){
+router.get("/bills", function (req, res) {
   // console.log("poop")
-  userBills.select(person.id, function (data) {
+  userBills.select(person.user_id, function (data) {
     var totalAmount = 0;
     for (let i = 0; i < data.length; i++) {
       totalAmount += data[i].amount;
     }
 
     var hbsObject = {
-      userBills: data, 
+      userBill: data,
       userTotal: totalAmount
     };
     res.render("index", hbsObject);
@@ -92,7 +94,8 @@ router.delete("/api/userBills/:id", function (req, res) {
 var userReceipts = require("../models/receipts.js");
 
 router.get("/receipts", function (req, res) {
-  userReceipts.all(function (data) {
+  console.log(person);
+  userReceipts.select(person.user_id, function (data) {
     var totalAmount = 0;
     for (let i = 0; i < data.length; i++) {
       totalAmount += data[i].amount;
@@ -100,12 +103,28 @@ router.get("/receipts", function (req, res) {
 
     var hbsObject = {
       userReceipts: data,
-      userReceiptsTotal: totalAmount
+      userTotal: totalAmount
     };
-    res.render("receipts", hbsObject);
+    res.render("index", hbsObject);
 
   });
-});
+})
+
+// router.get("/receipts", function (req, res) {
+//   userReceipts.all(function (data) {
+//     var totalAmount = 0;
+//     for (let i = 0; i < data.length; i++) {
+//       totalAmount += data[i].amount;
+//     }
+
+//     var hbsObject = {
+//       userReceipts: data,
+//       userReceiptsTotal: totalAmount
+//     };
+//     res.render("receipts", hbsObject);
+
+//   });
+// });
 
 router.post("/api/userReceipts", function (req, res) {
   userReceipts.create([

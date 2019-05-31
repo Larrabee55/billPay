@@ -240,3 +240,12 @@ $("#money-icon").on("click", function () {
 $("#iou-icon").on("click", function () {
     window.location = window.location + "iou"
 })
+
+$("#math").on("click", function () {
+    var rate = $("#rate").val();
+    var hours = $("#hours").val();
+    var income = rate * hours;
+    var yearlyRate = income * 52;
+
+    $("#output").text("$" + yearlyRate);
+})
