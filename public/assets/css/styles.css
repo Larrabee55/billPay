@@ -12,6 +12,10 @@ body {
     background: #3388cc
 }
 
+#userID {
+    display: none;
+}
+
 #nav-bar {
     display: flex;
 

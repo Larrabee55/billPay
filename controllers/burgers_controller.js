@@ -7,19 +7,6 @@ var person;
 var router = express.Router();
 
 router.get("/", function (req, res) {
-  // userBills.all(function (data) {
-  //   var totalAmount = 0;
-  //   for (let i = 0; i < data.length; i++) {
-  //     totalAmount += data[i].amount;
-  //   }
-
-  //   var hbsObject = {
-  //     userBills: data,
-  //     userTotal: totalAmount
-  //   };
-  //   res.render("index", hbsObject);
-
-  // });
   res.render("login")
 });
 router.get("/api/users/:user/:password", function (req, res) {
@@ -31,13 +18,14 @@ router.get("/api/users/:user/:password", function (req, res) {
     person = result[0];
     console.log(person);
     res.send(person);
-  })
+  });
 });
 var userBills = require("../models/burger.js");
 
 router.get("/bills", function (req, res) {
   // console.log("poop")
   userBills.select(person.user_id, function (data) {
+    var userId = person.user_id;
     var totalAmount = 0;
     for (let i = 0; i < data.length; i++) {
       totalAmount += data[i].amount;
@@ -45,7 +33,8 @@ router.get("/bills", function (req, res) {
 
     var hbsObject = {
       userBills: data,
-      userTotal: totalAmount
+      userTotal: totalAmount,
+      useableUserID: userId
     };
     res.render("index", hbsObject);
 
@@ -101,6 +90,7 @@ router.get("/receipts", function (req, res) {
   console.log(person);
 
   userReceipts.select(person.user_id, function (data) {
+    var userId = person.user_id;
     var totalAmount = 0;
     for (let i = 0; i < data.length; i++) {
       totalAmount += data[i].amount;
@@ -108,28 +98,13 @@ router.get("/receipts", function (req, res) {
 
     var hbsObject = {
       userReceipts: data,
-      userReceiptsTotal: totalAmount
+      userReceiptsTotal: totalAmount,
+      useableUserID: userId
     };
     res.render("receipts", hbsObject);
 
   });
-})
-
-// router.get("/receipts", function (req, res) {
-//   userReceipts.all(function (data) {
-//     var totalAmount = 0;
-//     for (let i = 0; i < data.length; i++) {
-//       totalAmount += data[i].amount;
-//     }
-
-//     var hbsObject = {
-//       userReceipts: data,
-//       userReceiptsTotal: totalAmount
-//     };
-//     res.render("receipts", hbsObject);
-
-//   });
-// });
+});
 
 router.post("/api/userReceipts", function (req, res) {
   userReceipts.create([
@@ -163,30 +138,17 @@ router.get("/iou", function (req, res) {
   console.log(person);
 
   userIou.select(person.user_id, function (data) {
-    var totalAmount = 0;
-    for (let i = 0; i < data.length; i++) {
-      totalAmount += data[i].amount;
-    }
+    var userId = person.user_id;
+
 
     var hbsObject = {
       userIou: data,
-      userTotal: totalAmount
+      useableUserID: userId
     };
     res.render("iou", hbsObject);
 
   });
-})
-
-// router.get("/iou", function (req, res) {
-//   userIou.all(function (data) {
-
-//     var hbsObject = {
-//       userIou: data
-//     };
-//     res.render("iou", hbsObject);
-
-//   });
-// });
+});
 
 router.post("/api/userIou", function (req, res) {
   userIou.create([
