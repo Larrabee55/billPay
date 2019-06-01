@@ -88,93 +88,50 @@ $(".delete-iou-button").on("click", function () {
     );
 });
 
-
-
-// $("body").on("mouseleave", ".bill-row", function () {
-//     let id = $(this).data("id")
-//     $(".edit-button").each(function () {
-//         if ($(this).data("id") === id) {
-//             $(this).css("display", "none")
-//         }
-//     })
-
-//     $(".delete-button").each(function () {
-//         if ($(this).data("id") === id) {
-//             $(this).css("display", "none")
-//         }
-//     })
-
-// })
-
 //adjusts opacity when user hovers over or leaves buttons.  (could probably be done with less code in css)
 $("body").on("mouseenter", ".edit-button", function () {
-    $(this).css("opacity", "1")
-})
+    $(this).css("opacity", "1");
+});
 
 $("body").on("mouseleave", ".edit-button", function () {
-    $(this).css("opacity", ".3")
-})
+    $(this).css("opacity", ".3");
+});
 
 $("body").on("mouseenter", ".delete-button", function () {
-    $(this).css("opacity", "1")
-})
+    $(this).css("opacity", "1");
+});
 
 $("body").on("mouseleave", ".delete-button", function () {
-    $(this).css("opacity", ".3")
-})
+    $(this).css("opacity", ".3");
+});
 
 $("body").on("mouseenter", ".button", function () {
-    $(this).css("opacity", "1")
-})
+    $(this).css("opacity", "1");
+});
 
 $("body").on("mouseleave", ".button", function () {
-    $(this).css("opacity", ".5")
-})
-
-//inserting row into bill table by clicking the submit button
-// $("body").on("click", "#submit-button", function (event) {
-//     event.preventDefault();
-//     $.ajax({
-//         method: "POST",
-//         url: "/api/addBill",
-//         data: {
-//             billName: $("#bill-name").val(),
-//             amount: $("#amount").val(),
-//             due: $("#due").val()
-//         }
-//     }).then(function (data) {
-
-//     })
-// })
-
-// $("body").on("click", ".delete-button", function (event) {
-//     $.ajax({
-//         method: "DELETE",
-//         url: "/api/deleteBill",
-//         data: {
-//             id: $(this).data("id")
-//         }
-//     }).then(function (data) {
-//         renderBillTable(data);
-//     })
-// })
+    $(this).css("opacity", ".5");
+});
 
 $("#money-icon").on("click", function () {
     window.location = window.location + "receipt"
-})
+});
 
 $("#iou-icon").on("click", function () {
     window.location = window.location + "iou"
-})
+});
 
 $("#math").on("click", function () {
     var rate = $("#rate").val();
     var hours = $("#hours").val();
     var income = rate * hours;
+    var monthly = income * 4;
     var yearlyRate = income * 52;
 
-    $("#output").text("$" + yearlyRate);
-})
+    $("#weekly").text("Gross Annual: $" + income);
+    $("#monthly").text("Gross Annual: $" + monthly);
+    $("#annualy").text("Gross Annual: $" + yearlyRate);
+});
 
 $("#submit").on("click", function (res) {
     var creds = {
@@ -189,18 +146,8 @@ $("#submit").on("click", function (res) {
     }).then(function (data) {
         console.log(data)
         if (data.auth == true) {
-            // location.assign(location.host+"/home")
-            // console.log(location.href)
-            // console.log(window.location)
             window.location = location.origin + "/home/" + data.data[0].id
-
-            // $.ajax(`/home`,{
-            //     type:"get"
-            // }).then(function(data){
-
-            // })
         }
-
-    })
+    });
     window.location = location.origin + "/"
-})
+});

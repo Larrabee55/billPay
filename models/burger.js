@@ -28,15 +28,5 @@ var userBills = {
     })
   }
 }
-// ------------receipt----------------
-
-
-// ----------IOU--------------------------
-
-// allIou: function (cols, vals, cb) {
-//   orm.iou("userIou", cols, vals, function (res) {
-//     cb(res);
-//   });
-// }
 // export the database functions for the controller (userBillss_controllers.js)
 module.exports = userBills;
