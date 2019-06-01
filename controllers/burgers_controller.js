@@ -1,6 +1,6 @@
 var express = require("express");
-var userBills = require("../models/burger.js");
-var user = require("../models/loginOrm");
+
+var user = require("../models/loginOrm.js");
 
 var person;
 
@@ -32,7 +32,8 @@ router.get("/api/users/:user/:password", function (req, res) {
     console.log(person);
     res.send(person);
   })
-})
+});
+var userBills = require("../models/burger.js");
 
 router.get("/bills", function (req, res) {
   // console.log("poop")
@@ -49,7 +50,7 @@ router.get("/bills", function (req, res) {
     res.render("index", hbsObject);
 
   });
-})
+});
 
 router.post("/api/userBills", function (req, res) {
   console.log(req.body);
@@ -235,12 +236,12 @@ router.post("/api/userCreds", function (req, res) {
   userCreds.create([
     "username", "password"
   ], [
-      req.body.username, hash = crypto.createHmac('sha256', secret)
-        .update(req.body.password)
-        .digest('hex')
-    ], function (result) {
-      res.json();
-    });
+    req.body.username, hash = crypto.createHmac('sha256', secret)
+    .update(req.body.password)
+    .digest('hex')
+  ], function (result) {
+    res.json();
+  });
 
 });
 

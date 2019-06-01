@@ -37,17 +37,41 @@ $("body").on("click", "#new-bill-button", function (event) {
     };
     console.log(newBill)
 
-    console.log(newBill);
-
     $.ajax("/api/userBills", {
         type: "POST",
         data: newBill
     }).then(
         function () {
+
             location.reload();
         }
     );
-    console.log(data)
+
+
+    // $("#bill-table").append(`
+    // <tr id="new-bill-row">
+    //     <th>
+    //         <form id = "bill-form">
+    //             <input id = "bill-name">
+    //         </form>
+    //     </th>
+    //     <th>
+    //         <input form = "bill-form" id = "amount">
+    //     </th>
+    //     <th>
+    //         <input form = "bill-form" id = "due">
+    //     </th>
+    // </tr>`)
+
+    // $("#button-flex").html(`
+    // <div id = "cancel-button" class = "button">
+    //     <img src = "/assets/img/images/delete.png" width = "18px">
+    // </div>
+    // <button form = "bill-form" id = "submit-button" class = "button">
+    //     <img src = "/assets/img/images/checkmark.png" width = "18px">
+    // </button>`)
+
+    // $("#button-flex").css("justify-content", "space-between")
 });
 
 $("body").on("click", "#new-receipt-button", function () {
@@ -57,7 +81,7 @@ $("body").on("click", "#new-receipt-button", function () {
         receipt_name: $("#receipt-name").val().trim(),
         amount: $("#amount").val().trim(),
         category: $("#category").val().trim(),
-        user_id: 3
+        user_id: 2
     };
 
     $.ajax("/api/userReceipts", {
@@ -224,10 +248,7 @@ $("#math").on("click", function () {
     var rate = $("#rate").val();
     var hours = $("#hours").val();
     var income = rate * hours;
-    var monthly = income * 4;
     var yearlyRate = income * 52;
 
-    $("#weekly").text("Gross Weekly: $" + income);
-    $("#monthly").text("Gross Monthly: $" + monthly);
-    $("#annualy").text("Gross Anually: $" + yearlyRate);
+    $("#output").text("$" + yearlyRate);
 })
