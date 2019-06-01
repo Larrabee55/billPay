@@ -23,7 +23,6 @@ router.get("/api/users/:user/:password", function (req, res) {
 var userBills = require("../models/burger.js");
 
 router.get("/bills", function (req, res) {
-  // console.log("poop")
   userBills.select(person.user_id, function (data) {
     var userId = person.user_id;
     var totalAmount = 0;
