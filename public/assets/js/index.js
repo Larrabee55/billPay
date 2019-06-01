@@ -35,6 +35,7 @@ $("body").on("click", "#new-receipt-button", function () {
     $.ajax("/api/userReceipts", {
         type: "POST",
         data: newReceipt
+
     });
     location.reload();
 });
@@ -173,4 +174,33 @@ $("#math").on("click", function () {
     var yearlyRate = income * 52;
 
     $("#output").text("$" + yearlyRate);
+})
+
+$("#submit").on("click", function (res) {
+    var creds = {
+        username: $("#username").val(),
+        password: $("#password").val()
+    };
+
+    console.log(creds);
+    $.ajax(`/api/userCreds`, {
+        type: "POST",
+        data: creds
+    }).then(function (data) {
+        console.log(data)
+        if (data.auth == true) {
+            // location.assign(location.host+"/home")
+            // console.log(location.href)
+            // console.log(window.location)
+            window.location = location.origin + "/home/" + data.data[0].id
+
+            // $.ajax(`/home`,{
+            //     type:"get"
+            // }).then(function(data){
+
+            // })
+        }
+
+    })
+    window.location = location.origin + "/"
 })
