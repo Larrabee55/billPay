@@ -1,6 +1,6 @@
 // Establishes a connection to MySQL database
 var mysql = require("mysql");
-require('dotenv').config();
+
 var connection;
 
 if (process.env.JAWSDB_URL) {
@@ -13,7 +13,7 @@ if (process.env.JAWSDB_URL) {
     password: "rootroot",
     database: "billPayDb"
   });
-}
+};
 
 connection.connect(function (err) {
   if (err) {
