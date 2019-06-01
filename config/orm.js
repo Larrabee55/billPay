@@ -34,17 +34,17 @@ function objToSql(ob) {
 // creates a orm variable to be exported
 var orm = {
   // selects all the rows from the table to be outputed on the screen
-  // all: function (tableInput, cb) {
-  //   var queryString = "SELECT * FROM " + tableInput + " WHERE user_id = '2';";
-  //   // var queryString2 = "SELECT DATE_FORMAT(" + due_date + ", '%D');";
+  all: function (tableInput, cb) {
+    var queryString = "SELECT * FROM " + tableInput + " WHERE user_id = '2';";
+    // var queryString2 = "SELECT DATE_FORMAT(" + due_date + ", '%D');";
 
-  //   connection.query(queryString, function (err, result) {
-  //     if (err) {
-  //       throw err;
-  //     }
-  //     cb(result);
-  //   });
-  // },
+    connection.query(queryString, function (err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+  },
   // creates a function to create a new burger
   create: function (table, cols, vals, cb) {
     var queryString = "INSERT INTO " + table;
