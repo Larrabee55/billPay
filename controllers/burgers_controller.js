@@ -46,12 +46,12 @@ router.post("/api/userBills", function (req, res) {
   userBills.create([
     "bill_name", "amount", "due_date", "user_id"
   ], [
-      req.body.bill_name, req.body.amount, req.body.due_date, req.body.user_id
-    ], function (result) {
-      res.json({
-        id: result.insertId
-      });
+    req.body.bill_name, req.body.amount, req.body.due_date, req.body.user_id
+  ], function (result) {
+    res.json({
+      id: result.insertId
     });
+  });
 });
 
 router.put("/api/userBills/:id", function (req, res) {
@@ -110,10 +110,10 @@ router.post("/api/userReceipts", function (req, res) {
   userReceipts.create([
     "receipt_name", "amount", "category", "user_id"
   ], [
-      req.body.receipt_name, req.body.amount, req.body.category, req.body.user_id
-    ], function (result) {
-      res.json();
-    });
+    req.body.receipt_name, req.body.amount, req.body.category, req.body.user_id
+  ], function (result) {
+    res.json();
+  });
 });
 
 router.delete("/api/userReceipts/:id", function (req, res) {
@@ -154,10 +154,10 @@ router.post("/api/userIou", function (req, res) {
   userIou.create([
     "iou_name", "amount", "user_id"
   ], [
-      req.body.iou_name, req.body.amount, req.body.user_id
-    ], function (result) {
-      res.json();
-    });
+    req.body.iou_name, req.body.amount, req.body.user_id
+  ], function (result) {
+    res.json();
+  });
 });
 
 router.delete("/api/userIou/:id", function (req, res) {
@@ -178,14 +178,8 @@ router.delete("/api/userIou/:id", function (req, res) {
 var userCreds = require("../models/loginOrm.js");
 
 router.get("/createlogin", function (req, res) {
-  userCreds.all(function (data) {
+  res.render("createLogin");
 
-    var hbsObject = {
-      userInfo: data
-    };
-    res.render("createLogin", hbsObject);
-
-  });
 });
 
 const crypto = require("crypto");
@@ -200,12 +194,12 @@ router.post("/api/userCreds", function (req, res) {
   userCreds.create([
     "username", "password"
   ], [
-      req.body.username, hash = crypto.createHmac('sha256', secret)
-        .update(req.body.password)
-        .digest('hex')
-    ], function (result) {
-      res.json();
-    });
+    req.body.username, hash = crypto.createHmac('sha256', secret)
+    .update(req.body.password)
+    .digest('hex')
+  ], function (result) {
+    res.json();
+  });
 
 });
 

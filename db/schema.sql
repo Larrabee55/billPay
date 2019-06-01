@@ -42,3 +42,15 @@ CREATE TABLE userBill
   PRIMARY KEY
       (id)
   );
+
+
+      create table userInfo
+      (
+        id int null,
+        username varchar(200) not null,
+        password varchar(200) not null,
+        user_id int
+        auto_increment not null,
+primary key
+        (user_id)
+);
